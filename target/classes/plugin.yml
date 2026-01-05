@@ -1,0 +1,16 @@
+name: mEconomy
+version: 1.0
+main: com.marcosfg.meconomy.Main
+author: MarcosFG
+api-version: 1.8.8
+softdepend: [Vault]
+load: STARTUP
+
+commands:
+  money:
+    description: Comandos de economia
+    aliases: [ecomoney, balance, bal]
+    permission: meconomy.use
+  magnata:
+    description: Ver o magnata atual
+    aliases: [balancetop, baltop]

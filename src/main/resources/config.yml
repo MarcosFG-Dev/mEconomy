@@ -1,0 +1,43 @@
+# Configuração mEconomy
+# Autor: MarcosFG
+
+# Tipo de armazenamento: YAML ou MYSQL
+storage:
+  type: "YAML" # Use MYSQL para banco de dados
+  mysql:
+    host: "localhost"
+    port: 3306
+    user: "root"
+    password: ""
+    database: "mecon"
+    table: "users_money"
+
+settings:
+  currency-symbol: "RT$"
+  currency-singular: "Real"
+  currency-plural: "Reais"
+  start-balance: 1000.0
+  format:
+    use-k-notation: true # Ex: 1.5k, 2M, 5B
+    decimals: 2
+
+messages:
+  prefix: "&2[&amEconomy&2] &f"
+  no-permission: "&cVocê não tem permissão."
+  balance: "&aSeu saldo: &2%symbol% %amount%"
+  balance-other: "&aSaldo de &e%player%&a: &2%symbol% %amount%"
+  paid: "&aVocê enviou &2%symbol% %amount% &apara &e%player%&a."
+  received: "&aVocê recebeu &2%symbol% %amount% &ade &e%player%&a."
+  admin-give: "&aVocê deu &2%symbol% %amount% &apara &e%player%&a."
+  admin-take: "&aVocê removeu &2%symbol% %amount% &ade &e%player%&a."
+  admin-set: "&aNovo saldo de &e%player%&a definido para &2%symbol% %amount%&a."
+  insufficient-funds: "&cSaldo insuficiente!"
+  player-not-found: "&cJogador não encontrado."
+  invalid-args: "&cUse: /money <pay/top/help>"
+  invalid-amount: "&cValor inválido."
+  magnata-broadcast: "&6&l[MAGNATA] &eO novo magnata é &f%player% &ecom &2%symbol% %amount%&e!"
+
+top-balance:
+  update-interval: 300 # Segundos
+  limit: 10
+  format: "&7%pos%º &f%player% &7- &2%balance%"

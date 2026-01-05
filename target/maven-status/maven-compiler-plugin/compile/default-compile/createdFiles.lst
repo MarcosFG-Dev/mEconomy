@@ -1,0 +1,7 @@
+com\marcosfg\meconomy\commands\MoneyCommand.class
+com\marcosfg\meconomy\utils\ColorUtils.class
+com\marcosfg\meconomy\api\VaultHook.class
+com\marcosfg\meconomy\Main.class
+com\marcosfg\meconomy\manager\EconomyManager.class
+com\marcosfg\meconomy\storage\StorageManager.class
+com\marcosfg\meconomy\utils\FormatUtils.class
