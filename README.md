@@ -5,6 +5,16 @@
 ![Vault](https://img.shields.io/badge/Vault-Ready-blue?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
+<div align="center">
+
+## 📥 Download do Plugin
+
+[![Baixar mEconomy](https://img.shields.io/badge/BAIXAR%20PLUGIN-mEconomy--jar-2ea44f?style=for-the-badge&logo=github)](https://github.com/MarcosFG-Dev/mEconomy/actions/workflows/maven-build.yml)
+
+> Acesse o workflow **Maven Build**, abra a execução mais recente e baixe o artifact **mEconomy-jar**.
+
+</div>
+
 O **mEconomy** é um plugin de economia robusto, eficiente e altamente configurável para servidores de Minecraft. Projetado para suportar desde pequenos servidores survival até grandes redes com milhares de jogadores, oferecendo performance de ponta e integração total com o ecossistema Spigot via Vault.
 
 ## 🚀 Funcionalidades Principais
@@ -34,7 +44,7 @@ O **mEconomy** é um plugin de economia robusto, eficiente e altamente configur�
 ### 🛡️ Comandos Administrativos
 
 | Comando | Descrição | Permissão |
-| :--- | :--- | :--- |
+| :--- | :--- |
 | `/money set <player> <quantia>` | Define o saldo exato de um jogador. | `meconomy.admin` |
 | `/money give <player> <quantia>` | Adiciona dinheiro ao saldo de um jogador. | `meconomy.admin` |
 | `/money take <player> <quantia>` | Remove dinheiro do saldo de um jogador. | `meconomy.admin` |
@@ -53,7 +63,7 @@ O **mEconomy** é um plugin de economia robusto, eficiente e altamente configur�
 
 # Tipo de armazenamento: YAML ou MYSQL
 storage:
-  type: "YAML" # Altere para MYSQL para usar banco de dados
+  type: "YAML" # Use MYSQL para banco de dados
   mysql:
     host: "localhost"
     port: 3306
@@ -88,9 +98,15 @@ messages:
   magnata-broadcast: "&6&l[MAGNATA] &eO novo magnata é &f%player% &ecom &2%symbol% %amount%&e!"
 
 top-balance:
-  update-interval: 300 # Segundos (Ainda não implementado o auto-update, apenas comando)
+  update-interval: 300
   limit: 10
+  max-limit: 100
+  permission: ""
+  header: "&2&lTOP %limit% &aMais Ricos:"
   format: "&7%pos%º &f%player% &7- &2%balance%"
+  empty: "&cNenhum jogador encontrado no ranking."
+  invalid-limit: "&cUse /%label% [quantidade] com um número entre %min% e %max%."
+  no-permission: "&cVocê não tem permissão para usar este comando."
 ```
 </details>
 
@@ -141,11 +157,14 @@ public class SeuPlugin extends JavaPlugin {
 
 ## 📥 Instalação
 
-1.  Baixe a versão mais recente na aba **Releases**.
-2.  Arraste o arquivo `.jar` para a pasta `plugins/` do seu servidor.
-3.  Instale o **Vault** (Obrigatório).
-4.  Reinicie o servidor.
-5.  Configure o `config.yml` conforme sua necessidade.
+1.  Clique no botão **BAIXAR PLUGIN** no topo do README.
+2.  Abra a execução mais recente do workflow **Maven Build**.
+3.  Baixe o artifact **mEconomy-jar**.
+4.  Extraia o `.zip` baixado e pegue o arquivo `.jar`.
+5.  Arraste o arquivo `.jar` para a pasta `plugins/` do seu servidor.
+6.  Instale o **Vault** (Obrigatório).
+7.  Reinicie o servidor.
+8.  Configure o `config.yml` conforme sua necessidade.
 
 ---
 
