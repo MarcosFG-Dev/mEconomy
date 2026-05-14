@@ -1,6 +1,7 @@
 package com.marcosfg.meconomy.commands;
 
 import com.marcosfg.meconomy.Main;
+import com.marcosfg.meconomy.gui.MoneyMenu;
 import com.marcosfg.meconomy.utils.ColorUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -12,19 +13,30 @@ import org.bukkit.entity.Player;
 public class MoneyCommand implements CommandExecutor {
 
     private final Main plugin;
+    private final MoneyMenu moneyMenu;
 
-    public MoneyCommand(Main plugin) {
+    public MoneyCommand(Main plugin, MoneyMenu moneyMenu) {
         this.plugin = plugin;
+        this.moneyMenu = moneyMenu;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
-            return handleSelfBalance(sender);
+            return handleMenu(sender);
         }
 
         switch (args[0].toLowerCase()) {
+            case "menu":
+            case "gui":
+            case "painel":
+                return handleMenu(sender);
+            case "saldo":
+            case "balance":
+            case "bal":
+                return handleSelfBalance(sender);
             case "pay":
+            case "pagar":
                 return handlePay(sender, args);
             case "set":
                 return handleAdminSet(sender, args);
@@ -35,10 +47,25 @@ public class MoneyCommand implements CommandExecutor {
             case "reload":
                 return handleReload(sender);
             case "help":
+            case "ajuda":
                 return handleHelp(sender);
             default:
                 return handleOtherBalance(sender, args[0]);
         }
+    }
+
+    private boolean handleMenu(CommandSender sender) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("§cConsole deve especificar player ou usar comandos administrativos.");
+            sender.sendMessage("§a/money <jogador>");
+            sender.sendMessage("§a/money set <jogador> <quantia>");
+            sender.sendMessage("§a/money give <jogador> <quantia>");
+            sender.sendMessage("§a/money take <jogador> <quantia>");
+            return true;
+        }
+
+        moneyMenu.openMain((Player) sender);
+        return true;
     }
 
     private boolean handleSelfBalance(CommandSender sender) {
@@ -79,6 +106,7 @@ public class MoneyCommand implements CommandExecutor {
         Player player = (Player) sender;
         if (args.length < 3) {
             player.sendMessage(colorMessage("messages.invalid-args"));
+            player.sendMessage(ColorUtils.color("&7Dica: use &a/money menu &7para pagar pelo menu."));
             return true;
         }
 
@@ -107,7 +135,7 @@ public class MoneyCommand implements CommandExecutor {
                 .replace("%symbol%", currencySymbol())
                 .replace("%amount%", plugin.getEconomyManager().format(amount)));
 
-        if (target.isOnline()) {
+        if (target.isOnline() && target.getPlayer() != null) {
             target.getPlayer().sendMessage(colorMessage("messages.received")
                     .replace("%player%", player.getName())
                     .replace("%symbol%", currencySymbol())
@@ -204,9 +232,11 @@ public class MoneyCommand implements CommandExecutor {
     }
 
     private boolean handleHelp(CommandSender sender) {
-        sender.sendMessage("§a/money");
-        sender.sendMessage("§a/money <jogador>");
-        sender.sendMessage("§a/money pay <player> <quantia>");
+        sender.sendMessage("§a/money §7- Abre o menu de economia");
+        sender.sendMessage("§a/money saldo §7- Mostra seu saldo no chat");
+        sender.sendMessage("§a/money <jogador> §7- Mostra o saldo de outro jogador");
+        sender.sendMessage("§a/money pay <player> <quantia> §7- Envia dinheiro");
+        sender.sendMessage("§a/money menu §7- Abre o menu GUI profissional");
         if (sender.hasPermission("meconomy.admin")) {
             sender.sendMessage("§c/money set <player> <quantia>");
             sender.sendMessage("§c/money give <player> <quantia>");
@@ -226,7 +256,7 @@ public class MoneyCommand implements CommandExecutor {
 
     private Double parsePositiveAmount(String raw) {
         try {
-            double value = Double.parseDouble(raw);
+            double value = Double.parseDouble(raw.replace(",", "."));
             return value > 0 ? value : null;
         } catch (NumberFormatException ignored) {
             return null;
@@ -235,7 +265,7 @@ public class MoneyCommand implements CommandExecutor {
 
     private Double parseNonNegativeAmount(String raw) {
         try {
-            double value = Double.parseDouble(raw);
+            double value = Double.parseDouble(raw.replace(",", "."));
             return value >= 0 ? value : null;
         } catch (NumberFormatException ignored) {
             return null;
