@@ -33,7 +33,7 @@ messages:
   admin-set: "&aNovo saldo de &e%player%&a definido para &2%symbol% %amount%&a."
   insufficient-funds: "&cSaldo insuficiente!"
   player-not-found: "&cJogador não encontrado."
-  invalid-args: "&cUse: /money <pay/top/help>"
+  invalid-args: "&cUse: /money <jogador|pay|set|give|take|reload|help>"
   invalid-amount: "&cValor inválido."
   magnata-broadcast: "&6&l[MAGNATA] &eO novo magnata é &f%player% &ecom &2%symbol% %amount%&e!"
 
