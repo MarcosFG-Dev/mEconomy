@@ -38,6 +38,33 @@ messages:
   magnata-broadcast: "&6&l[MAGNATA] &eO novo magnata é &f%player% &ecom &2%symbol% %amount%&e!"
 
 top-balance:
-  update-interval: 300 # Segundos
+  # Intervalo, em segundos, para atualização/cache do ranking, caso o sistema utilize atualização periódica.
+  update-interval: 300
+
+  # Quantidade padrão exibida ao usar /magnata sem argumentos.
   limit: 10
+
+  # Limite máximo permitido ao usar /magnata [quantidade].
+  max-limit: 100
+
+  # Permissão necessária para usar /magnata.
+  # Deixe vazio para liberar o comando para todos.
+  permission: ""
+
+  # Cabeçalho exibido antes da lista de jogadores mais ricos.
+  # Placeholders: %limit%, %min%, %max%, %label%
+  header: "&2&lTOP %limit% &aMais Ricos:"
+
+  # Formato de cada linha do ranking.
+  # Placeholders: %pos%, %player%, %balance%, %limit%, %min%, %max%, %label%
   format: "&7%pos%º &f%player% &7- &2%balance%"
+
+  # Mensagem exibida quando não há jogadores no ranking.
+  empty: "&cNenhum jogador encontrado no ranking."
+
+  # Mensagem exibida quando o jogador usa um limite inválido.
+  # Placeholders: %limit%, %min%, %max%, %label%
+  invalid-limit: "&cUse /%label% [quantidade] com um número entre %min% e %max%."
+
+  # Mensagem exibida quando a permissão acima está configurada e o jogador não possui acesso.
+  no-permission: "&cVocê não tem permissão para usar este comando."
